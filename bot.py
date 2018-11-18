@@ -64,7 +64,7 @@ def use_data():
 
 def info_about_nstu():
     try:
-        str = open('/home/Main/Project/info_files/about_nstu.txt', 'r')
+        str = open('/home/Main/Project/git/bot/info_files/about_nstu.txt', 'r')
     except IOError:
         vk.method("messages.send", {"user_id": id, "message": "Оу... Кажется у нас проблемы, попробуйте позже.", "keyboard":keyboard_default})
     finally:
@@ -177,7 +177,7 @@ keyboard_data={
 keyboard_direction_selection={
     "one_time": True,
     "buttons":[
-        [get_button(label="По предметам",color="default",payload="name")],
+        [get_button(label="По предметам",color="default",payload="name")], #keyboard_data already contained payload "name"
         [get_button(label="По сфере",color="default",payload="sphere")],
         [get_button(label="Главное меню",color="primary",payload="main_menu")]
     ]

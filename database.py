@@ -34,7 +34,6 @@ def search_field(table_name,connection,value, field):
                 return True
 
 def get_field(connection,table_name,select_field,field,value):
-        print(1)
         with connection.cursor() as cursor:
             sql = "SELECT " + select_field + " FROM " + table_name + " WHERE " + field + " = %s"
             cursor.execute(sql,(value))
