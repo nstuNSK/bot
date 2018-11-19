@@ -355,9 +355,9 @@ while True:
             elif pay=="name":
                 data.set_field(connection = connection, table_name = "Graduates", ID_VK = id, field = "name", value = WAIT_FILLING)
                 vk.method("messages.send", {"user_id": id, "message": "Введите свое ФИО:"})
-            elif pay=='"position_in_list"':
+            elif pay=="position_in_list":
                 vk.method("messages.send", {"user_id": id, "message": "Введите код напрваления"})
-                vk.method("messages.send", {"user_id": id, "message": "Посмотреть его можно на https://www.nstu.ru/enrollee/exams"})
+                vk.method("messages.send", {"user_id": id, "message": "Посмотреть его можно на: https://www.nstu.ru/enrollee/exams"})
             else:
                 other_event(msg=msg)
 
