@@ -177,7 +177,7 @@ keyboard_data={
 keyboard_direction_selection={
     "one_time": True,
     "buttons":[
-        [get_button(label="По предметам",color="default",payload="name")], #keyboard_data already contained payload "name"
+        [get_button(label="По предметам",color="default",payload="name_dir")], 
         [get_button(label="По сфере",color="default",payload="sphere")],
         [get_button(label="Главное меню",color="primary",payload="main_menu")]
     ]
@@ -267,6 +267,7 @@ keyboard_sphere={
         [
             get_button(label="Назад",color="primary",payload="direction_selection"),
             get_button(label="Главное меню",color="primary",payload="main_menu")
+            get_button(label = "Найти", color = "primary", payload = "search")
         ]
     ]
 }
@@ -340,9 +341,46 @@ while True:
             elif pay=="direction_selection":
                 vk.method("messages.send", {"user_id": id, "message": "Как подобрать напрваление?", "keyboard":keyboard_direction_selection})
             elif pay=="sphere":
+                #delete spheres
+                data.set_field(connection = connection, table_name = "Status", ID_VK = id, field = "SPHERE", value = 0)
                 vk.method("messages.send", {"user_id": id, "message": "Выберите сферу:", "keyboard":keyboard_sphere})
             elif pay=="Машиностроение" or pay=="Безопасность" or pay=="Энергетика" or pay=="IT-технологии" or pay=="Электроника" or pay=="Авиация" or pay=="Общество" or pay=="Экономика" or pay=="Химия" or pay=="Языки" or pay=="Физика":
-                sphere = get_field(select_field = "SPHERE",table_name = "Sphere",connection= connection,value=pay, field="NAME_SPHERE")
+                sphere = data.get_field(select_field = "SPHERE",table_name = "Status",connection= connection,value=id, field="id_vk")[0]
+                sphere = sphere*100+data.get_field(select_field = "SPHERE",table_name = "Sphere",connection= connection,value=pay, field="NAME_SPHERE")[0]
+                data.set_field(connection = connection, table_name = "Status", ID_VK = id, field = "SPHERE", value = sphere)
+                #<1000000
+                vk.method("messages.send", {"user_id": id, "message": "Сфера добавлена!:", "keyboard":keyboard_sphere})
+            elif pay == "search":
+                a = 0
+                sphere = data.get_field(select_field = "SPHERE",table_name = "Status",connection= connection,value=id, field="id_vk")[0]
+                if sphere == 0:
+                    vk.method("messages.send", {"user_id": id, "message": "Нет добавленных сфер:", "keyboard":keyboard_sphere})
+                if sphere < 100:
+                    a = 2
+                    res[0] = data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=sphere, field="SPHERE")
+                elif sphere <10000:
+                    a = 4
+                    if int(sphere/100)>sphere%100:
+                        sphere = (sphere%100)*100+int(sphere/100)
+                    res[0] = data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=sphere%100, field="SPHERE")
+                    res[1]= data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=int(sphere/100), field="SPHERE")
+                    res[2] = data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=sphere, field="SPHERE")
+                else:
+                    a = 6
+                    #сравнение поэлементно sphere
+                    if int(sphere/100) > sphere%100:
+                        sphere = (sphere%100)*100+int(sphere/100)
+                    res[0] = data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=sphere%100, field="SPHERE")
+                    res[1]= data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=int(sphere/100), field="SPHERE")
+                    res[2] = data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=int(sphere/10000), field="SPHERE")
+                    res[3] = data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=sphere%10000, field="SPHERE")
+                    res[4]= data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=str(sphere%100)+str(int(sphere/10000)), field="SPHERE")
+                    res[5]= data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=int(sphere%100)/100), field="SPHERE")
+
+                '''while sphere != 0:
+                    a = sphere/100
+                    sphere = sphere%100'''
+                    #res = data.get_field(select_field = "SPHERE",table_name = "Sphere",connection= connection,value=a, field="id_vk")
             elif pay=="yes" or pay=="no":
                 str=search_subject(id=id,connection=connection,table_name="Graduates",flag=WAIT_FILLING_POINTS)
                 #print(str)

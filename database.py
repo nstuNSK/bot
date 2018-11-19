@@ -44,6 +44,11 @@ def set_field(connection, table_name, ID_VK, field, value):
         sql = "UPDATE " + table_name + " SET " + field + " = " + value + " WHERE id_vk = %s"
         str = cursor.execute(sql, (ID_VK))
         connection.commit()
+def get_fields(connection,table_name,select_field,field,value):
+    with connection.cursor() as cursor:
+            sql = "SELECT " + select_field + " FROM " + table_name + " WHERE " + field + " = %s"
+            cursor.execute(sql,(value))
+            return list(cursor.fetchone())
 
 #def get_field(connection, table_name, ID_VK, field):
 #    with connection.cursor() as cursor:
