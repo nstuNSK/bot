@@ -38,14 +38,19 @@ def search_field(table_name,connection,value, field):
 
 def get_field(connection,table_name,select_field,field,value):
         with connection.cursor() as cursor:
+            #print("Ищу: ",value)
             sql = "SELECT " + select_field + " FROM " + table_name + " WHERE " + field + " = %s"
-            cursor.execute(sql,(value))
-            return list(cursor.fetchone())
+            size = cursor.execute(sql,(value))
+            #print("Нашел: ",size, " значений")
+            if size == 0:
+                return 0
+            return list(cursor.fetchall())
+            #return cursor.fetchall()
 
 def set_field(connection, table_name, ID_VK, field, value):
     with connection.cursor() as cursor:
-        sql = "UPDATE " + table_name + " SET " + field + " = " + value + " WHERE id_vk = %s"
-        str = cursor.execute(sql, (ID_VK))
+        sql = "UPDATE " + table_name + " SET " + field + " = " + str(value) + " WHERE id_vk = %s"
+        r = cursor.execute(sql, (ID_VK))
         connection.commit()
 def get_fields(connection,table_name,select_field,field,value):
     with connection.cursor() as cursor:
