@@ -1,10 +1,13 @@
 import pymysql.cursors
+import getter
 
 def connect():
     #try:
+        user = getter.get_user()
+        password = getter.get_password()
         cnx = pymysql.connect(
-            user='Main',
-			password = 'Pasbot20!8',
+            user=user,
+			password = password,
             host = 'localhost',
             db='Users'
         )

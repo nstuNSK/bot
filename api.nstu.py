@@ -1,6 +1,7 @@
 import requests
 import json
 import database as data
+import getter
 #sphere disc2 disc3
 connection = data.connect()
 subjects = {'Математика': "math",
@@ -60,8 +61,8 @@ def set_line(table_name, values):
                 connection.commit()'''
 
 def main():
-
-    html = requests.get("https://api.ciu.nstu.ru/v1.0/test/for_bot")
+    url = getter.get_nstu_url()
+    html = requests.get(url)
     text = html.text
     text = bytes(text, 'utf-8').decode('unicode-escape')
     api = json.loads(text)

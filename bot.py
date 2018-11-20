@@ -7,8 +7,10 @@ import json
 import sys
 import requests
 import database as data
+import getter
 
-vk = vk_api.VkApi(token="d00a1318d5f9182d89e56612d1df321e3413ca74c2b6cb6a6fe443cb0782adbcbf089960703bfda62658b")
+token = getter.get_token()
+vk = vk_api.VkApi(token=token)
 vk._auth_token()
 WAIT_FILLING_POINTS = "-3"
 WAIT_FILLING = "-2"
@@ -177,7 +179,7 @@ keyboard_data={
 keyboard_direction_selection={
     "one_time": True,
     "buttons":[
-        [get_button(label="По предметам",color="default",payload="name_dir")], 
+        [get_button(label="По предметам",color="default",payload="name_dir")],
         [get_button(label="По сфере",color="default",payload="sphere")],
         [get_button(label="Главное меню",color="primary",payload="main_menu")]
     ]
@@ -266,7 +268,7 @@ keyboard_sphere={
         ],
         [
             get_button(label="Назад",color="primary",payload="direction_selection"),
-            get_button(label="Главное меню",color="primary",payload="main_menu")
+            get_button(label="Главное меню",color="primary",payload="main_menu"),
             get_button(label = "Найти", color = "primary", payload = "search")
         ]
     ]
@@ -365,7 +367,7 @@ while True:
                     res[0] = data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=sphere%100, field="SPHERE")
                     res[1]= data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=int(sphere/100), field="SPHERE")
                     res[2] = data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=sphere, field="SPHERE")
-                else:
+                '''else:
                     a = 6
                     #сравнение поэлементно sphere
                     if int(sphere/100) > sphere%100:
@@ -377,7 +379,7 @@ while True:
                     res[4]= data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=str(sphere%100)+str(int(sphere/10000)), field="SPHERE")
                     res[5]= data.get_field(select_field = "DIRECTION, FACULT, URL",table_name = "Directions",connection= connection,value=int(sphere%100)/100), field="SPHERE")
 
-                '''while sphere != 0:
+                    while sphere != 0:
                     a = sphere/100
                     sphere = sphere%100'''
                     #res = data.get_field(select_field = "SPHERE",table_name = "Sphere",connection= connection,value=a, field="id_vk")
