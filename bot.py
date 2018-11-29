@@ -179,7 +179,16 @@ def search_direction(id):
     vk.method("messages.send", {"user_id": id,"message":"По данным сферам найдены следуюшие направления:"})
     res = list(set(res))
     for item in res:
-        response = response + "Направление: " + '"' + item[0] + '(' + item[1] + ')' + '"' + " на факультете " + item[2]+ "\n" +item[3] + "\n" +"Ссылка на направление: " + item[4]+"\n\n"
+        if item[1]=='null':
+            if item[3]=='null':
+                response = response + "Направление: " + '"' + item[0] + '"' + " на факультете " + item[2]+ "\n" +"Ссылка на направление: " + item[4]+"\n\n"
+            else:
+                response = response + "Направление: " + '"' + item[0] + '"' + " на факультете " + item[2]+ "\n" +item[3] + "\n" +"Ссылка на направление: " + item[4]+"\n\n"
+        else:
+            if item[3]=='null':
+                response = response + "Направление: " + '"' + item[0] + ' (' + item[1] + ')' + '"' + " на факультете " + item[2]+ "\n" +"Ссылка на направление: " + item[4]+"\n\n"
+            else:
+                response = response + "Направление: " + '"' + item[0] + ' (' + item[1] + ')' + '"' + " на факультете " + item[2]+ "\n" +item[3] + "\n" +"Ссылка на направление: " + item[4]+"\n\n"
     vk.method("messages.send", {"user_id": id,"message": response})
     vk.method("messages.send", {"user_id": id,"message": "Искал как в последний раз:)","keyboard": keyboard_default})
 
