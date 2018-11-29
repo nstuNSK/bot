@@ -53,7 +53,7 @@ def set_line(table_name, values):
     disc3 = get_field("DISC3","DISC3","NAME_SUB",subjects[values["DISC3"]])
     with connection.cursor() as cursor:
             if search_field("Directions", "ID_DIR", values["ID"]) == False:
-                sql = "INSERT INTO " + table_name + "(DESCR, PROFILE_NAME, ID_DIR, FACULT, KEYS_PLUS, DIRECTION, SPHERE, DISC2, DISC3, BALL_K, BALL_B, URL) VALUES ( "+","+str(values['DESCR'])+"'"+", "+"'"+str(values['PROFILE_NAME'])+"'"+", "+str(values['ID']) +", '"+str(values['FACULT']) +"', "+" '"+str(values['KEYS_PLUS']) + "', " + " '"+ str(values['DIRECTION'])+"', "+str(res)+", "+str(disc2)+", "+str(disc3)+", "+" "+str(values['BALL_K'])+", "+" "+str(values['BALL_B']) +", "+" '"+"abc'"+")"
+                sql = "INSERT INTO " + table_name + "(DESCR, PROFILE_NAME, ID_DIR, FACULT, KEYS_PLUS, DIRECTION, SPHERE, DISC2, DISC3, BALL_K, BALL_B, URL) VALUES ( "+"'"+str(values['DESCR'])+"'"+", "+"'"+str(values['PROFILE_NAME'])+"'"+", "+str(values['ID']) +", '"+str(values['FACULT']) +"', "+" '"+str(values['KEYS_PLUS']) + "', " + " '"+ str(values['DIRECTION'])+"', "+str(res)+", "+str(disc2)+", "+str(disc3)+", "+" "+str(values['BALL_K'])+", "+" "+str(values['BALL_B']) +", "+" '"+"abc'"+")"
                 print(sql)
                 cursor.execute(sql)
                 connection.commit()
