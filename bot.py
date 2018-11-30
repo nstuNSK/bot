@@ -399,9 +399,9 @@ while True:
             try:
                 pay = bytes(pay, 'cp1251').decode('utf-8')
             except ValueError:
-                print("pzd")
-            #pay = pay.encode('base64').decode('utf8')
-            print(pay)
+                pass
+            finally:
+                print(pay)
             if data.search_field(table_name="Status",connection=connection,value=id, field="id_vk")==False:
                 data.set_user(table_name="Status", connection=connection,ID_VK=id)
             if pay=={"command":"start"} or pay == "admin":
