@@ -8,6 +8,7 @@ import sys
 import requests
 import database as data
 import getter
+import base64
 
 token = getter.get_token()
 vk = vk_api.VkApi(token=token)
@@ -396,7 +397,7 @@ while True:
             else:
                 pay = "0"
             #pay = bytes(pay, 'cp1251').decode('base64')
-            pay = base64.decode(pay)
+            pay = pay.encode('base64').decode('utf8')
             print(pay)
             if data.search_field(table_name="Status",connection=connection,value=id, field="id_vk")==False:
                 data.set_user(table_name="Status", connection=connection,ID_VK=id)
