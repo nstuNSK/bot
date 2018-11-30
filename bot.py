@@ -395,7 +395,8 @@ while True:
                 pay = messages["items"][0]["last_message"]["payload"][1:-1]
             else:
                 pay = "0"
-            #pay = bytes(pay, 'cp1251').decode('utf-8')
+            #pay = bytes(pay, 'cp1251').decode('base64')
+            pay = base64.decode(pay)
             print(pay)
             if data.search_field(table_name="Status",connection=connection,value=id, field="id_vk")==False:
                 data.set_user(table_name="Status", connection=connection,ID_VK=id)
