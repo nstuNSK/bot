@@ -389,6 +389,7 @@ keyboard_sphere = json.dumps(keyboard_sphere, ensure_ascii = False)
 keyboard_direction_selection = json.dumps(keyboard_direction_selection,ensure_ascii = False)
 
 while True:
+    print('1111')
     try:
         print('dcjkl')
         messages = vk.method("messages.getConversations", {"offset": 0, "count": 100, "filter": "unanswered"})
