@@ -8,6 +8,7 @@ import sys
 import requests
 import database as data
 import getter
+#jldkjkl
 
 token = getter.get_token()
 vk = vk_api.VkApi(token=token)
