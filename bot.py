@@ -8,7 +8,6 @@ import sys
 import requests
 import database as data
 import getter
-import base64
 
 token = getter.get_token()
 vk = vk_api.VkApi(token=token)
