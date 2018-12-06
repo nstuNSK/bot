@@ -12,8 +12,8 @@ import base64
 
 token = getter.get_token()
 vk = vk_api.VkApi(token=token)
-r = read()
-print(r)
+for line in sys.stdin:
+    print(line.rstrip('\n')[::-1])
 vk._auth_token()
 WAIT_FILLING_POINTS = "-3"
 WAIT_FILLING = "-2"
