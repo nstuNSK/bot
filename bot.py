@@ -10,6 +10,7 @@ import database as data
 import getter
 
 token = getter.get_token()
+print(token)
 vk = vk_api.VkApi(token=token)
 print(vk)
 for line in sys.stdin:
