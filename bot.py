@@ -12,6 +12,7 @@ import getter
 
 token = getter.get_token()
 vk = vk_api.VkApi(token=token)
+print(vk)
 for line in sys.stdin:
     print(line.rstrip('\n')[::-1])
 vk._auth_token()
