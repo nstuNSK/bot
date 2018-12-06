@@ -199,7 +199,7 @@ def search_direction(id):
 
 
 connection=data.connect()
-#print(connection)
+print(connection)
 keyboard_start={
     "one_time": True,
     "buttons":[
