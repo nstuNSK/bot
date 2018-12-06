@@ -8,10 +8,9 @@ import sys
 import requests
 import database as data
 import getter
-#jldkjkl
 
-#token = getter.get_token()
-vk = vk_api.VkApi(token='d00a1318d5f9182d89e56612d1df321e3413ca74c2b6cb6a6fe443cb0782adbcbf089960703bfda62658b')
+token = getter.get_token()
+vk = vk_api.VkApi(token=token)
 print(vk)
 for line in sys.stdin:
     print(line.rstrip('\n')[::-1])
@@ -391,6 +390,7 @@ keyboard_direction_selection = json.dumps(keyboard_direction_selection,ensure_as
 
 while True:
     try:
+        print('dcjkl')
         messages = vk.method("messages.getConversations", {"offset": 0, "count": 100, "filter": "unanswered"})
         if messages["count"] >= 1:
             id = messages["items"][0]["last_message"]["from_id"]
