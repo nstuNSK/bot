@@ -10,8 +10,8 @@ import database as data
 import getter
 #jldkjkl
 
-token = getter.get_token()
-vk = vk_api.VkApi(token=token)
+#token = getter.get_token()
+vk = vk_api.VkApi(token='d00a1318d5f9182d89e56612d1df321e3413ca74c2b6cb6a6fe443cb0782adbcbf089960703bfda62658b')
 print(vk)
 for line in sys.stdin:
     print(line.rstrip('\n')[::-1])
